@@ -1,13 +1,15 @@
-click==8.1.8
-colorama==0.4.6
-dlib==19.24.6
-face-recognition==1.3.0
-face-recognition-models==0.3.0
-numpy==2.2.4
-opencv-python==4.11.0.86
-pandas==2.2.3
-pillow==11.1.0
-python-dateutil==2.9.0.post0
-pytz==2025.2
-six==1.17.0
-tzdata==2025.2
+# Core dependencies for facial recognition
+opencv-python>=4.5.0,<5.0.0    # Computer vision utilities
+face-recognition>=1.3.0,<2.0.0  # Face recognition algorithms
+dlib>=19.22.0,<20.0.0          # Machine learning and image processing
+numpy>=1.19.0,<2.0.0            # Numerical processing
+
+# Formatting and utilities
+click>=8.0.0,<9.0.0             # Command-line interface utilities
+colorama>=0.4.4,<0.5.0          # Terminal text coloring
+pillow>=8.0.0,<10.0.0           # Image processing
+
+# Data processing
+pandas>=1.1.0,<2.0.0            # Data analysis and manipulation
+python-dateutil>=2.8.0,<3.0.0   # Date and time manipulation
+pytz>=2021.1                    # Timezone calculations

@@ -38,10 +38,8 @@ env/
 .DS_Store
 
 # Project specific files
-# Keep encodings.pickle in version control for demo purposes,
-# but in general, pickle files should not be version controlled
+# Pickle files should not be version controlled as they may contain sensitive data
 *.pickle
-!encodings.pickle
 
 # Attendance logs (but keep structure with .gitkeep)
 *.csv

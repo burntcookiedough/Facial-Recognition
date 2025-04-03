@@ -1,0 +1,8 @@
+{
+    "exclude": [
+        "env311",
+        "env311/Scripts/pywin32_postinstall.py"
+    ],
+    "reportMissingImports": true,
+    "reportMissingTypeStubs": false
+} 

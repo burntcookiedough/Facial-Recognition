@@ -113,81 +113,98 @@ If you prefer to set up the system manually:
    - Download the files manually from [here](https://github.com/opencv/opencv/tree/master/samples/dnn/face_detector)
    - Place `deploy.prototxt` and `res10_300x300_ssd_iter_140000_fp16.caffemodel` in the `models/` directory
 
-## Quick Start
+## How to Use
 
 ### 1. Collect Face Images
 
 To add a new person to the system:
 
 ```bash
-python scripts/collect.py
+# Basic usage
+python -m scripts.collect
+
+# With additional parameters
+python -m scripts.collect --name "John Doe" --count 20
 ```
 
-Follow the prompts to:
-- Enter the person's name
-- Capture multiple face images (press 's' to save an image)
-- Press 'q' when done capturing
+Parameters:
+- `--name`: Name of the person (will prompt if not provided)
+- `--output`: Custom directory to save images in
+- `--count`: Number of images to collect
+
+During collection:
+- Press 's' to save an image
+- Press 'q' to quit when done
 
 ### 2. Encode Faces
 
 After collecting face images, encode them:
 
 ```bash
-python scripts/encode.py
+# Basic usage
+python -m scripts.encode
+
+# With custom paths
+python -m scripts.encode --dataset custom/dataset/path --output custom_encodings.pickle
 ```
 
-This creates a database of facial features for recognition.
+Parameters:
+- `--dataset`: Path to the dataset directory
+- `--output`: Path to save the encodings
 
 ### 3. Run the Attendance System
 
-Start the attendance recognition system:
+Start the face recognition attendance system:
 
 ```bash
-python scripts/attendance.py
+# Basic usage
+python -m scripts.attendance
+
+# With custom settings
+python -m scripts.attendance --encodings custom_encodings.pickle --tolerance 0.6
 ```
 
-The system will:
-- Detect faces in the webcam feed
-- Recognize known individuals
-- Log attendance with timestamps in a CSV file
+Parameters:
+- `--encodings`: Path to the encodings file
+- `--tolerance`: Face recognition tolerance (lower is stricter, range 0-1)
 
-### 4. View Attendance Records
+Press 'q' to exit the attendance system.
 
-Attendance records are saved as CSV files named `attendance_YYYY-MM-DD.csv` in the project root.
+### 4. Face Detection Only
 
-## Advanced Usage
-
-### Face Detection Only
-
-To run face detection without recognition:
+If you want to run face detection without recognition:
 
 ```bash
-python scripts/detect.py
+# Basic usage
+python -m scripts.detect
+
+# With custom settings
+python -m scripts.detect --confidence 0.7
 ```
 
-### Command Line Arguments
+Parameters:
+- `--confidence`: Detection confidence threshold (default 0.5)
+- `--prototxt`: Path to the Caffe prototxt file
+- `--model`: Path to the Caffe model file
 
-All scripts support additional arguments. Here are some examples:
+Press 'q' to exit face detection.
+
+### Accessing Help
+
+All scripts support the `--help` flag to display available options:
 
 ```bash
-# Collect faces for a specific person
-python scripts/collect.py --name "John Doe" --count 20
-
-# Use custom paths for encoding
-python scripts/encode.py --dataset custom/dataset/path --output custom_encodings.pickle
-
-# Run attendance with custom settings
-python scripts/attendance.py --encodings custom_encodings.pickle --tolerance 0.6
-
-# Run face detection with custom model files
-python scripts/detect.py --prototxt custom/deploy.prototxt --model custom/model.caffemodel
+python -m scripts.collect --help
+python -m scripts.encode --help
+python -m scripts.attendance --help
+python -m scripts.detect --help
 ```
 
-Use `--help` with any script to see all available options:
+## Output Files
 
-```bash
-python scripts/collect.py --help
-```
+- Attendance logs are saved as CSV files named `attendance_YYYY-MM-DD.csv`
+- Face encodings are saved in `encodings.pickle`
+- Face images are stored in the `dataset/[name]` directories
 
 ## Troubleshooting
 
@@ -232,6 +249,29 @@ python scripts/collect.py --help
   pip uninstall opencv-python
   pip install opencv-python --no-cache-dir
   ```
+
+- **Missing dependencies**: 
+  - Run `python setup.py` again to install required packages
+
+## Advanced Usage
+
+### Command Line Arguments
+
+All scripts support additional arguments. Examples:
+
+```bash
+# Collect faces for a specific person
+python -m scripts.collect --name "John Doe" --count 20
+
+# Use custom paths for encoding
+python -m scripts.encode --dataset custom/dataset/path --output custom_encodings.pickle
+
+# Run attendance with custom settings
+python -m scripts.attendance --encodings custom_encodings.pickle --tolerance 0.6
+
+# Run face detection with custom model files
+python -m scripts.detect --prototxt custom/deploy.prototxt --model custom/model.caffemodel
+```
 
 ## Contributing
 
